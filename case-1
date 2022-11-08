@@ -1,0 +1,89 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Case_Study_01
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Student s = new Student();
+            
+            
+        }
+    }
+    /* class Student
+     {
+         int id;
+         string name;
+         DateTime dateofbirth;
+     }
+     public int Id
+     {
+         get { return id; }
+         set { id = value; }
+     }
+     public string Name
+     {
+         get { return name; }
+         set { name = value; }
+     }
+
+     public DateTime Dateofbirth
+     {
+         get { return dateofbirth; }
+         set { dateofbirth = value; }
+     }
+
+     public void display (Student student)
+     {
+         System.Console.WriteLine("Id =  " + id);
+         System.Console.WriteLine("Name =  " + name);
+         System.Console.WriteLine("Dateofbirth " + dateofbirth);
+
+     }*/
+   // First, both methods: Constructor and Setter are safe ways to change object's attributes. Are expected from Class author to expose or not safe ways to modify an instance.
+
+//The default constructor is always provided if you have not written one:
+
+// Example of a Class with a Default Constructor 
+public class Student
+    {
+
+        int id;
+        string name;
+        DateTime dateofbirth;
+        // Student Name
+        public String getValue()
+        {
+            return name;
+        }
+        public void setValue(String value)
+        {
+            this.name = "Sam";
+        }
+        // Student id
+        public int getValue( int i)
+        {
+            return id;
+        }
+        public void setValue(int i)
+        {
+            this.id = 315;
+        }
+        // Student Date of birth
+        public DateTime getValue(DateTime d)
+        {
+            return dateofbirth;
+        }
+        public void setValue(DateTime d)
+        {
+            this.dateofbirth = "5/12/2020";
+            DateTime DateObje = Convert.ToDateTime(dateofbirth);
+        }
+
+    }
+}
