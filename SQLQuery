@@ -1,0 +1,25 @@
+
+create table student
+(
+ stdid int primary key,
+ stdname varchar(30),
+ dob varchar(20)
+ )
+
+ insert into student (stdid,stdname,dob) values (@stdid,@stdname,@dob)
+ go
+
+ select * from student
+
+ create table Course
+ (
+ Cid int primary key,
+ cname varchar(30),
+ cdur varchar(20),
+ Cfee int
+ )
+
+ insert into Course(Cid,cname,cdur,Cfee) values (@Cid,@cname,@cdur,@Cfee)
+ go
+
+ select * from Course
