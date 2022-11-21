@@ -1,0 +1,10 @@
+create database MoviesDB
+
+use MoviesDB
+
+create table Movie
+(Mid  int primary key,
+ Moviename varchar(30),
+ DateofRelease Date)
+
+ select * from Movie
