@@ -1,0 +1,203 @@
+----------------------------Country.cs----------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace WEB_API.Models
+{
+    public class Country
+    {
+        public int ID { get; set; }
+        public string CountryName { get; set; }
+        public string Capital { get; set; }
+    }
+}
+---------------------------DemoController.cs-----------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using WEB_API.Models;
+
+namespace WEB_API.Controllers
+{
+    public class DemoController : ApiController
+    {
+        static List<string> countrys = new List<string> { "India", "Canada", "US", "Australia", "Japan" };
+        //Get : api/Demo
+        public IEnumerable<string> Get()
+        {
+            return countrys;
+        }
+        //public IEnumerable<string> Get()
+        //{
+        //    return capitals;
+        //}
+
+        //Get : api/Demo/2 
+        public string Get(int id)
+        {
+            return countrys[id];
+        }
+        //public string Get(int id)
+        //{
+        //    return capitals;
+        //}
+
+        //post using an model Object
+        public IEnumerable<string> Post([FromBody] Country c)
+
+        {
+            countrys.Add(c.CountryName);
+            // countrys.Add(val);
+            return countrys;
+        }
+        ////post using strings  [not working XML,Json]
+        //[HttpPost]
+        //public IEnumerable<string> StringPost([FromBody] string val)
+        //{
+        //    countrys.Add(val);
+        //    return countrys;
+        //}
+        [HttpPost]
+        public IEnumerable<string> Addstring([FromUri] string val)
+        {
+            countrys.Add(val);
+            return countrys;
+        }
+
+        //put : api/Demo/id
+        public IEnumerable<string>Put(int id,[FromUri] string v)
+        {
+            countrys[id - 1] = v;
+            return countrys;
+        }
+        //delete : api/Demo/id
+        //public IEnumerable<string>Delete(int id)
+        //{
+        //    countrys.RemoveAt(id - 1);
+        //    return countrys;
+        //}
+        public void Delete(int id)
+        {
+            countrys.RemoveAt(id - 1);
+        }
+    }
+}
+
+--------------------------CountryController.cs---------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Text;
+using System.Web.Http;
+using WEB_API.Models;
+
+
+namespace WEB_API.Controllers
+{
+    [RoutePrefix("api/Country")]
+    public class CountryController : ApiController
+    {
+        static List<Country> countrylist = new List<Country>()
+        {
+            new Country{ID=1,CountryName="India",Capital="New Delhi"},
+            new Country{ID=2,CountryName="Canada",Capital="ottawa"},
+            new Country{ID=3,CountryName="US",Capital="Washington"},
+            new Country{ID=4,CountryName="Australia",Capital="Canberra"},
+            new Country{ID=5,CountryName="Japan",Capital="Tokyo"},
+        };
+            
+        //Get : api/Country
+        [HttpGet]
+        [Route("General")]
+        public IEnumerable<Country>Get()
+        {
+            return countrylist;
+        }
+
+        // Get using HttpResponseMessage object
+        [HttpGet]
+        [Route("UserHttp")]
+        public HttpResponseMessage Getcountrylist()
+        {
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, countrylist);
+            response.Content = new StringContent("hello All", Encoding.Unicode);
+            response.Headers.CacheControl = new CacheControlHeaderValue()
+            {
+                MaxAge = TimeSpan.FromMinutes(15)
+             };
+            return response;
+         }
+
+
+        //implement IHttpActionResult to get users by id
+        [HttpGet]
+        [Route("ById")]
+        public IHttpActionResult GetByID(int cid)
+        {
+            var country= countrylist.Find(x => x.ID == cid);
+            if (country == null)
+            {
+                return NotFound();
+            }
+            return Ok(country);
+        }
+
+        [HttpGet]
+        [Route("GetName")]
+        public IHttpActionResult GetUserByname(int pid)
+        {
+            string cname = countrylist.Where(a => a.ID == pid).SingleOrDefault()?.CountryName;
+            if (cname == null)
+            {
+                return NotFound();
+            }
+            return Ok(cname);
+        }
+
+        //Post 
+        public Country Post([FromBody] Country c)
+        {
+            countrylist.Add(c);
+            return c;
+        }
+
+        [HttpPost]
+        [Route("AllPost")]
+
+        public List<Country> PostAll([FromBody] Country cou)
+        {
+            countrylist.Add(cou);
+            return countrylist;
+        }
+        [HttpPost]
+
+        public void UserPost([FromUri] int Id, string countryname, string capital)
+        {
+            Country c = new Country();
+            c.ID = Id;
+            c.CountryName = countryname ;
+            c.Capital = capital;
+            countrylist.Add(c);
+        }
+        //put
+
+        public void Put(int id, [FromBody] Country c)
+        {
+            countrylist[id - 1] = c;
+        }
+
+        //delete
+        public void Delete(int id)
+        {
+            countrylist.RemoveAt(id - 1);
+        }
+    }
+}
