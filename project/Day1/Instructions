@@ -17,3 +17,4 @@
       -----1.  enable-migrations
       -----2.  add-migration "first"
       -----3.  update-database
+     
