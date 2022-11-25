@@ -1,0 +1,19 @@
+1. Create a  "Main" class  in model
+
+2. then create a Context for main class (model)
+    install ---Entity
+    
+3. then create Constroller for Main class
+----create Index method
+       ----Add view
+-----create Create method
+       ----Add view
+ ------Build the solution------
+ 
+ 4.Add database connection  in Web.config
+ 
+ 5.Add migrations to model
+    using
+      -----1.  enable-migrations
+      -----2.  add-migration "first"
+      -----3.  update-database
