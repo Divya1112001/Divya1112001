@@ -1,0 +1,60 @@
+
+create database Employeetravelsystem
+
+use Employeetravelsystem
+
+
+ create table Employee_tbl(
+ Emp_id int primary key,
+ Emp_Name varchar(50) not null,
+ Email varchar(50) , 
+ DOB date not null,
+ Gender varchar(30),
+ Password varchar(40)   not null,
+ Project_id int foreign key references Project_tbl(Project_id),
+ Dept_id int foreign key references Dept_tbl(Dept_id), 
+ Emp_designation varchar(40),   
+ Phone varchar(30),
+ DOJ date not null,
+ Report_manager varchar(50) not null,
+ salary int ,
+ check (salary >= 50000) )
+
+ insert into  Employee_tbl(Emp_id,Emp_Name,Email,DOB,Gender,Password,Project_id,Dept_id,Emp_designation,Phone,DOJ,Report_manager,salary)
+ values (1,'Divya','divya@infinite.com','11-1-2001','Female','d123',100,1000,'Associate Software','23456789','09-17-2021','ganesh',60000);
+
+ select * from Employee_tbl
+ 
+ create table Users
+ (
+   
+	 User_id  varchar(40) not null,
+	 User_Name varchar(40),
+	 Password varchar(40) check((len([PASSWORD])>(5) AND [PASSWORD] like '%[0-9]%' AND [PASSWORD] like '%[A-Z]%')),
+ )
+
+ insert into Users(User_id,User_Name,Password)
+  values ('315','haritha','H123')
+
+  select * from Users
+
+  create table Project_tbl( 
+ Project_id int primary key,
+ Projectname varchar(50),
+ PSD date not null,
+ PED date not null,
+ Description varchar(100)); 
+ 
+ insert into Project_tbl(Project_id,Projectname,PSD,PED,Description)
+  values (100,'Travel booking system','1-sep-2021','1-dec-2021','This is travels related project')
+
+ select * from Project_tbl 
+
+ create table Dept_tbl(
+ Dept_id int primary key,
+ Dept_name varchar(50));  
+
+ insert into Dept_tbl(Dept_id,Dept_name)
+ values (1000,'Research')
+ 
+ select * from Dept_tbl 
