@@ -1,0 +1,115 @@
+@model IEnumerable<Day1_client.Models.MVCEmployeeModel>
+
+@{
+    ViewBag.Title = "Display";
+}
+
+<h2>TRAVEL REQUESTS RAISED BY EMPLOYEES</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Emp_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Emp_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Project_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dept_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Emp_designation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Report_manager)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Emp_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Emp_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Project_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dept_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Emp_designation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DOJ)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Report_manager)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success">Approve</button>
+                <button type="submit" class="btn btn-danger">Reject</button>
+
+            </div>
+            <!--   @Html.ActionLink("Accept", "Accept")
+    @Html.ActionLink("Reject", "Reject") -->
+            <!-- <button type="submit" value="Approve" class="btn btn-success>Login</button>-->
+
+        </td>
+       
+    </tr>
+}
+
+</table>
