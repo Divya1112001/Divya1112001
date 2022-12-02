@@ -1,0 +1,109 @@
+--create database Employeetravelbookingsystem
+
+
+create table Usertype
+(
+    User_type_Id   int    Primary Key    ,
+    description    VARCHAR(40)    Not Null,    
+)
+
+
+
+create table Managers
+(
+    Manager_id int identity(1,1) primary key,
+    Name varchar(50),
+    Designation varchar(50),
+    id int foreign key references Usertype(User_type_id)
+}
+
+
+
+create table traveAgent
+(
+   travel_id int identity(1,1) primary key,
+   travel_name varchar(50),
+   Mail varchar(50)check(email like '%_@__%.__%'),
+)
+
+
+
+create table TravelRequest
+(
+      Request_Id int identity(1,1),
+      Name varchar(50)not null,
+      Request_Date date,
+      From_Location varchar(40),
+      To_Location varchar(40),
+      User_type_Id numeric(4) foreign key references Usertype(User_type_id),
+      primary key(Request_Id,User_type_Id) ,
+      Current_Status varchar(40)
+)
+
+
+
+create table Employee(
+                Emp_Id numeric(4) primary key,
+                Emp_Name varchar(50) not null,
+                Email varchar(50)check(email like '%_@__%.__%') ,
+                DOB date not null,
+                Gender varchar(30),
+                 Password varchar(40)  not null,
+                 Emp_designation varchar(40),   
+                 Phone varchar(30) check (len([phone])=10 AND [phone] like '%[0-9]%' ),
+                 DOJ date not null,
+                 Report_manager varchar(50) not null,
+                 salary int  check (salary >= 50000)
+
+
+
+
+
+
+insert into  Employee(Emp_id,Emp_Name,Email,DOB,Gender,Password,Emp_designation,Phone,DOJ,Report_manager,salary)
+values (1,'Divya','divya@infinite.com','11-1-2001','Female','d123',100,1000,'Associate Software','23456789','09-17-2021','ganesh',60000)
+   
+create table Users
+(
+     Login_Id int identity(1,1) primary key,
+     User_id  varchar(40) not null,
+     Password varchar(40) check((len([PASSWORD])>(5) AND [PASSWORD] like '%[0-9]%' AND [PASSWORD] like '%[A-Z]%')),
+     User_type_id int foreign key references Usertype(User_type_id),
+     Name varchar(40),
+     Manager_user_id varchar(40),
+     primary key(Login_Id,User_type_id)
+)
+
+
+
+
+
+insert into TravelRequest(Request_Id,Request_Date,From_Location,To_Location,Current_Status)
+values (110,'13/sep/23','Banglore','Hyderabad','Accept'),
+         (111,'28/dec/22','chennai','Banglore',,'Reject'),
+          (112,'10/jan/23','pune','America','Reject'),
+           (113,'03/mar/23','Hyderabad','Delhi','Accept'),
+            (114,'13/dec/22','Banglore','Cannada','Reject'),
+             (115,'13/apr/23','chennai','Australia','Accept')
+
+
+
+
+
+insert into Usertype(User_type_Id,description)
+values (201,'Still in progress'),
+        (221,'Completed'),
+        (241,'Completed'),
+        (261,'Still in progress'),
+        (281,'Completed'),
+        (291,'Still in progress')
+
+
+
+
+
+insert into Users(Login_Id,User_id,Password,User_type_id,Name,Manager_user_id)
+values (1,'username','U12345','','Haritha',11),
+       (2,'adminame','A12345','','Anupa',12),
+       (3,'travelname','T12345','','Niranjan',13),
+       (4,'managername','M12345','','Sairoopa',14)
